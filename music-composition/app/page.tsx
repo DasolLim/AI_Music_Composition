@@ -64,7 +64,7 @@ export default function Home() {
 
   return (
     <main
-      className="min-h-screen flex flex-col items-center justify-center px-4 relative overflow-hidden"
+      className="min-h-screen flex flex-col items-center justify-center px-4 relative overflow-hidden bg-cover bg-center text-white"
       style={{
         backgroundImage: "url('/assets/background.jpg')",
         backgroundSize: "cover",
@@ -86,7 +86,7 @@ export default function Home() {
       {/* Main Content */}
       <div className="flex flex-col items-center gap-8 max-w-2xl mx-auto text-center">
         <div className="space-y-4">
-          <h1 className="text-4xl font-bold tracking-tighter text-white sm:text-5xl xl:text-6xl/none">
+          <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl xl:text-6xl">
             Welcome to our AI-Powered Music Composer!
           </h1>
           <p className="text-lg text-gray-300">
@@ -95,12 +95,12 @@ export default function Home() {
         </div>
 
         {/* File Upload */}
-        <div className="w-full max-w-md flex gap-4">
+        <div className="w-full max-w-md flex flex-col md:flex-row gap-4">
           <Input
             type="file"
             className="bg-gray-900/50 border-gray-800 text-gray-400 file:bg-gray-800 file:text-white file:border-0 hover:file:bg-gray-700"
             accept=".midi,.mid"
-            onChange={handleFileChange} // ADDED
+            onChange={handleFileChange}
           />
           <Button variant="secondary" className="whitespace-nowrap" onClick={handleUpload}>
             Upload File
@@ -112,19 +112,17 @@ export default function Home() {
 
         {/* Style Selection */}
         <div className="space-y-4 w-full">
-          <p className="text-lg font-medium text-white">Select a Style</p>
+          <p className="text-lg font-medium">Select a Style</p>
           <div className="flex flex-wrap justify-center gap-4">
-            {["Classical", "Pop", "Jazz", "Rock", "Electronic", "Folk"].map(
-              (style) => (
-                <Button
-                  key={style}
-                  variant="outline"
-                  className="min-w-[100px] bg-gray-900/50 border-gray-800 text-white hover:bg-gray-800 hover:text-white"
-                >
-                  {style}
-                </Button>
-              )
-            )}
+            {["Classical", "Pop", "Jazz", "Rock", "Electronic", "Folk"].map((style) => (
+              <Button
+                key={style}
+                variant="outline"
+                className="min-w-[100px] bg-gray-900/50 border-gray-800 text-white hover:bg-gray-800 hover:text-white"
+              >
+                {style}
+              </Button>
+            ))}
           </div>
         </div>
 
@@ -132,8 +130,8 @@ export default function Home() {
         <Button
           size="icon"
           className="h-16 w-16 rounded-full bg-white hover:bg-gray-200 text-black"
-          onClick={handlePlay} // ADDED
-          disabled={!generatedFileUrl} // Prevent playing if no file is generated
+          onClick={handlePlay}
+          disabled={!generatedFileUrl}
         >
           <Play className="h-8 w-8" />
         </Button>
@@ -141,7 +139,7 @@ export default function Home() {
         {/* MIDI Audio Player */}
         {generatedFileUrl && (
           <div className="mt-4">
-            <p className="text-lg font-medium text-white">Generated Music:</p>
+            <p className="text-lg font-medium">Generated Music:</p>
             <audio controls className="w-full max-w-md">
               <source src={generatedFileUrl} type="audio/midi" />
               Your browser does not support the audio element.
@@ -149,7 +147,7 @@ export default function Home() {
           </div>
         )}
 
-        {/* Footer Line */}
+        {/* Footer */}
         <div className="w-full max-w-2xl border-t border-dotted border-gray-800 pt-8 mt-8" />
       </div>
     </main>
