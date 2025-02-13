@@ -25,7 +25,7 @@ Over time, the generator improves its ability to create realistic-sounding piano
 ## 🛠️ Usage
 1. Clone the repository:
    ```sh
-   git clone https://github.com/yourusername/ai-music-composer.git
+   https://github.com/DasolLim/AI_Music_Composition.git
    ```
 2. Install dependencies for the frontend and backend.
 3. Train the GAN model using the MAESTRO dataset.
