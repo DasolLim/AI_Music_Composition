@@ -1,8 +1,8 @@
 "use client"
 
 import Image from "next/image";
-import { Button } from "../components/button";
-import { Input } from "../components/input";
+import { Button } from "@/app/components/button";
+import { Input } from "@/app/components/input";
 import { Play } from "lucide-react";
 import { useState } from "react";
 import * as Tone from "tone";
@@ -66,7 +66,7 @@ export default function Home() {
     <main
       className="min-h-screen flex flex-col items-center justify-center px-4 relative overflow-hidden"
       style={{
-        backgroundImage: "url('/background.jpg')",
+        backgroundImage: "url('/assets/background.jpg')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
@@ -75,7 +75,7 @@ export default function Home() {
       {/* Logo */}
       <div className="absolute top-8 left-8">
         <Image
-          src="/logo.png"
+          src="/assets/logo.png"
           alt="Music Logo"
           width={80}
           height={80}
