@@ -2,6 +2,8 @@
 
 This project trains a Neural Network (NN) to generate piano compositions in real time based on user input. The system processes MIDI files, which combine audio and symbolic music data, to create new compositions dynamically.
 
+![image](https://github.com/user-attachments/assets/89ddbf82-15ff-461c-9a01-0b0bd224ad81)
+
 ## 🚀 Tech Stack
 - **Frontend:** React + TypeScript
 - **Backend:** Python
