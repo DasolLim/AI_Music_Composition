@@ -18,3 +18,15 @@ latest_midi = max(midi_files, key=os.path.getctime)
 original_file_name = os.path.splitext(latest_midi)[0]  # Remove .mid extension
 
 print(f"Processing most recent MIDI file: {latest_midi}")
+
+# load the MIDI file into a multitrack object
+multitrack = read(latest_midi)
+
+# convert the multitrack MIDI to PrettyMIDI format
+pm = to_pretty_midi(multitrack)
+
+# create a new PrettyMIDI object to store processed notes
+new_pm = pretty_midi.PrettyMIDI()
+
+# define legato overlap duration
+legato_overlap = 0.02  # Small overlap for smooth transitions
