@@ -81,3 +81,40 @@ for instrument in pm.instruments:
     new_pm.instruments.append(new_instrument)
 
 # Now `new_pm` contains the **legato-processed MIDI** without notes cutting off too early.
+
+# create another pretty_midi object for additional effects
+processed_pm = pretty_midi.PrettyMIDI()
+for instrument in new_pm.instruments:
+    processed_instrument = pretty_midi.Instrument(program=instrument.program)
+    
+    # sort notes by start time again
+    instrument.notes.sort(key=lambda note: note.start)
+
+    last_start_time = -1
+    chord_notes = []
+
+    for note in instrument.notes:
+        new_velocity = 20  # set all notes to a soft velocity (ppp)
+
+        # introduce slight timing variation (-10ms to +10ms) for a more human feel
+        time_variation = np.random.uniform(-0.01, 0.01)
+        new_start = max(0, note.start + time_variation)
+        new_end = max(new_start + 0.05, note.end + time_variation)
+
+        # slightly delay notes in long chords (chords lasting ≥1 second) to create an arpeggio effect
+        if chord_notes and all(n.end - n.start >= 1.0 for n in chord_notes):
+            for j, chord_note in enumerate(chord_notes):
+                time_offset = j * np.random.uniform(0.02, 0.04)  # add small delays between notes
+                chord_note.start += time_offset
+                chord_note.end = max(chord_note.start + 0.05, chord_note.end + time_offset)
+
+        # create the new processed note
+        new_note = pretty_midi.Note(
+            velocity=20,  # keep dynamics soft, 0 for softest and 127 for hardest
+            pitch=note.pitch,
+            start=new_start,
+            end=new_end
+        )
+        processed_instrument.notes.append(new_note)
+
+    processed_pm.instruments.append(processed_instrument)
