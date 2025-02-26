@@ -118,3 +118,33 @@ for instrument in new_pm.instruments:
         processed_instrument.notes.append(new_note)
 
     processed_pm.instruments.append(processed_instrument)
+
+# save the final processed midi file
+edited_midi_name = f"edited_{original_file_name}.mid"
+processed_pm.write(edited_midi_name)
+
+# load the new midi file to verify changes
+pm_humanized = pretty_midi.PrettyMIDI(edited_midi_name)
+
+# convert the midi file to audio using a soundfont
+wave = pm_humanized.fluidsynth(sf2_path="SalC5Light2.sf2", fs=sample_rate)
+
+# save the audio as a wav file
+sf.write("edited_midi.wav", wave, sample_rate)
+
+# load the audio file into pydub for further processing
+segment = AudioSegment.from_wav("edited_midi.wav")
+
+# apply a low-pass filter to reduce high-frequency sharpness
+filtered_segment = segment.low_pass_filter(2500)
+
+# add subtle reverb effect by overlaying a quieter version of the same audio
+filtered_segment = filtered_segment.overlay(filtered_segment - 6, position=50)
+
+# normalize the audio to avoid overly loud or quiet sections
+filtered_segment = filtered_segment.normalize()
+
+# play the final processed audio
+playback.play(filtered_segment)
+
+print(f"edited midi saved as: {edited_midi_name}")
